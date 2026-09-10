@@ -27,4 +27,9 @@ public class LancamentoService {
         return repository.findAll();
     }
 
+    public Lancamento buscarPorId(Long id){
+        return repository.findById(id)
+                .orElseThrow();
+    }
+
 }
