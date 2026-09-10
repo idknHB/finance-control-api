@@ -22,12 +22,19 @@ public class LancamentoController {
     @PostMapping
     public Lancamento criar(
             @RequestBody Lancamento lancamento
-    ){
+    ) {
         return service.salvar(lancamento);
     }
 
     @GetMapping
     public List<Lancamento> listar() {
         return service.listarTodos();
+    }
+
+    @GetMapping("/{id}")
+    public Lancamento buscarPorId(
+            @PathVariable Long id
+    ){
+        return service.buscarPorId(id);
     }
 }
