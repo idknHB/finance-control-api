@@ -1,10 +1,8 @@
 package com.renan.financecontrol.controller;
 
 import com.renan.financecontrol.entity.Lancamento;
-import com.renan.financecontrol.repository.LancamentoRepository;
 import com.renan.financecontrol.service.LancamentoService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -37,4 +35,10 @@ public class LancamentoController {
     ){
         return service.buscarPorId(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable long id){
+        service.deletar(id);
+    }
+
 }

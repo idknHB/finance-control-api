@@ -32,4 +32,7 @@ public class LancamentoService {
                 .orElseThrow();
     }
 
+    public void deletar(long Id){
+        repository.deleteById(Id);
+    }
 }
