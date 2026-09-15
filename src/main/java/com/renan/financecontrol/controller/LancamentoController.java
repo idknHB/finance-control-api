@@ -2,6 +2,7 @@ package com.renan.financecontrol.controller;
 
 import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.service.LancamentoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -19,13 +20,14 @@ public class LancamentoController {
 
     @PostMapping
     public Lancamento criar(
-            @RequestBody Lancamento lancamento
+            @Valid @RequestBody Lancamento lancamento
     ) {
         return service.salvar(lancamento);
     }
 
     @GetMapping
-    public List<Lancamento> listar() {
+    public List<Lancamento> listar()
+    {
         return service.listarTodos();
     }
 
@@ -37,8 +39,22 @@ public class LancamentoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable long id){
+    public void deletar(
+            @PathVariable long id
+    ){
         service.deletar(id);
     }
+
+    @PutMapping("/{id}")
+    public Lancamento atualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody Lancamento lancamento
+    ){
+        return service.atualizar(
+                id,
+                lancamento
+        );
+    }
+
 
 }
