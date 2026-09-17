@@ -5,6 +5,8 @@ import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.exception.ResouceNotFoundException;
 import com.renan.financecontrol.repository.LancamentoRepository;
 import org.jspecify.annotations.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +40,12 @@ public class LancamentoService {
     public List<Lancamento> listarTodos(
     ){
         return repository.findAll();
+    }
+
+    public Page<Lancamento> listarPaginado(
+            Pageable pageable
+    ){
+        return repository.findAll(pageable);
     }
 
     public Lancamento buscarPorId(
