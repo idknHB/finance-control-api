@@ -3,6 +3,8 @@ package com.renan.financecontrol.controller;
 import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.service.LancamentoService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -75,4 +77,12 @@ public class LancamentoController {
                 descricao
         );
     }
+
+    @GetMapping("/paginado")
+    public Page<Lancamento> listarPaginado(
+            Pageable pageable
+    ){
+        return service.listarPaginado(pageable);
+    }
+
 }
