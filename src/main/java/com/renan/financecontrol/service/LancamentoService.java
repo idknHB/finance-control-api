@@ -40,7 +40,11 @@ public class LancamentoService {
     }
 
     public Lancamento buscarPorId(Long id){
-        return buscarPorId(id);
+        return buscarOuFalhar(id);
+    }
+
+    public List<Lancamento> buscarPorTipo(String tipo){
+        return repository.findByTipoIgnoreCase(tipo);
     }
 
     public void deletar(long Id){
