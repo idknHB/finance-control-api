@@ -31,6 +31,13 @@ public class LancamentoController {
         return service.listarTodos();
     }
 
+    @GetMapping("/tipo/{tipo}")
+    public List<Lancamento> buscarPorTipo(
+            @PathVariable String tipo
+    ){
+        return service.buscarPorTipo(tipo);
+    }
+
     @GetMapping("/{id}")
     public Lancamento buscarPorId(
             @PathVariable Long id

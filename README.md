@@ -10,6 +10,10 @@ REST API for personal finance management developed with Spring Boot.
 - Categorize transactions
 - RESTful endpoints
 
+## Endpoints
+
+- `GET /lancamentos/tipo/{tipo}`: lists transactions of the supplied type (for example, `/lancamentos/tipo/receita`).
+
 ## Technologies
 
 - Java 21
