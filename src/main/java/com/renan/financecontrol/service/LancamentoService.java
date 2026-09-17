@@ -4,7 +4,7 @@ import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.exception.ResouceNotFoundException;
 import com.renan.financecontrol.repository.LancamentoRepository;
-import jakarta.validation.ConstraintValidatorContext;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,25 +35,52 @@ public class LancamentoService {
         return repository.save(lancamento);
     }
 
-    public List<Lancamento> listarTodos(){
+    public List<Lancamento> listarTodos(
+    ){
         return repository.findAll();
     }
 
-    public Lancamento buscarPorId(Long id){
+    public Lancamento buscarPorId(
+            Long id
+    ){
         return buscarOuFalhar(id);
     }
 
-    public List<Lancamento> buscarPorTipo(String tipo){
+    public List<Lancamento> buscarPorTipo(
+            String tipo
+    ){
         return repository.findByTipoIgnoreCase(tipo);
     }
 
-    public void deletar(long Id){
+    public List<Lancamento> buscarComFiltro(
+            String tipo,
+            String descricao
+    ){
+        if(tipo != null && descricao != null){
+            return repository.findByTipoIgnoreCaseAndDescricaoContainingIgnoreCase(tipo, descricao);
+        }
+
+        if(tipo != null){
+            return repository.findByTipoIgnoreCase(tipo);
+        }
+
+        if(descricao != null){
+            return repository.findByDescricaoContainingIgnoreCase(descricao);
+        }
+
+        return repository.findAll();
+    }
+
+
+    public void deletar(
+            long Id
+    ){
         repository.delete(buscarOuFalhar(Id));
     }
 
     public Lancamento atualizar(
             Long id,
-            Lancamento novoLancamento
+            @NonNull Lancamento novoLancamento
     ){
         Lancamento lancamentoExistente = buscarOuFalhar(id);
 
@@ -87,7 +114,7 @@ public class LancamentoService {
 
         for(Lancamento l : lancamentos){
 
-            if(l.getTipo().equals("Receita")){
+            if("Receita".equalsIgnoreCase(l.getTipo())){
                 receitas += l.getValor().doubleValue();
             }else{
                 despesas += l.getValor().doubleValue();

@@ -11,4 +11,6 @@ public interface LancamentoRepository
         extends JpaRepository<Lancamento, Long> {
 
     List<Lancamento> findByTipoIgnoreCase(String tipo);
+    List<Lancamento> findByDescricaoContainingIgnoreCase(String descricao);
+    List<Lancamento> findByTipoIgnoreCaseAndDescricaoContainingIgnoreCase(String tipo, String descricao);
 }

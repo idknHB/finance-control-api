@@ -4,6 +4,8 @@ import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.service.LancamentoService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -63,5 +65,14 @@ public class LancamentoController {
         );
     }
 
-
+    @GetMapping("/filtro")
+    public List<Lancamento> buscarPorFiltro(
+            @RequestParam(required = false) String tipo,
+            @RequestParam(required = false) String descricao
+    ){
+        return service.buscarComFiltro(
+                tipo,
+                descricao
+        );
+    }
 }
