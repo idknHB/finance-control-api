@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/lancamentos")
 public class LancamentoController {
@@ -31,6 +33,10 @@ public class LancamentoController {
         return service.salvar(lancamento);
     }
 
+    @Operation(
+            summary = "List all transactions",
+            description = "Return all registered transactions"
+    )
     @GetMapping
     public List<Lancamento> listar() {
         return service.listarTodos();
@@ -94,12 +100,19 @@ public class LancamentoController {
         return service.buscarPorPeriodo(inicio, fim);
     }
 
-
+    @Operation(
+            summary = "Calculate balance",
+            description = "Calculates revenues, expenses and current balance"
+    )
     @GetMapping("/saldo")
     public SaldoDTO saldo() {
         return service.calcularSaldo();
     }
 
+    @Operation(
+            summary = "Financial dashboard",
+            description = "Returns revenues, expenses, balance and transactions count"
+    )
     @GetMapping("/dashboard")
     public DashboardDTO dashboard() {
         return service.gerarDashboard();
