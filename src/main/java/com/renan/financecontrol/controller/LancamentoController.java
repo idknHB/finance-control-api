@@ -4,10 +4,12 @@ import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.service.LancamentoService;
 import jakarta.validation.Valid;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -84,6 +86,16 @@ public class LancamentoController {
     ){
         return service.listarPaginado(pageable);
     }
+
+    @GetMapping("/periodo")
+    public List<Lancamento> buscarPorPeriodo(
+            @RequestParam LocalDate inicio,
+            @RequestParam LocalDate fim
+    )
+    {
+        return service.buscarPorPeriodo(inicio, fim);
+    }
+
 
     @GetMapping("/saldo")
     public SaldoDTO saldo()

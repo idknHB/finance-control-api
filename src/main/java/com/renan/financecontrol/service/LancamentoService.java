@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -112,6 +113,13 @@ public class LancamentoService {
         return repository.save(
                 lancamentoExistente
         );
+    }
+
+    public List<Lancamento> buscarPorPeriodo(
+            LocalDate inicio,
+            LocalDate fim
+    ){
+        return repository.findByDataBetween(inicio, fim);
     }
 
     public SaldoDTO calcularSaldo(){
