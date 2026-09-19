@@ -1,10 +1,10 @@
 package com.renan.financecontrol.controller;
 
+import com.renan.financecontrol.dto.DashboardDTO;
 import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.service.LancamentoService;
 import jakarta.validation.Valid;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class LancamentoController {
 
     public LancamentoController(
             LancamentoService service
-    ){
+    ) {
         this.service = service;
     }
 
@@ -32,29 +32,28 @@ public class LancamentoController {
     }
 
     @GetMapping
-    public List<Lancamento> listar()
-    {
+    public List<Lancamento> listar() {
         return service.listarTodos();
     }
 
     @GetMapping("/tipo/{tipo}")
     public List<Lancamento> buscarPorTipo(
             @PathVariable String tipo
-    ){
+    ) {
         return service.buscarPorTipo(tipo);
     }
 
     @GetMapping("/{id}")
     public Lancamento buscarPorId(
             @PathVariable Long id
-    ){
+    ) {
         return service.buscarPorId(id);
     }
 
     @DeleteMapping("/{id}")
     public void deletar(
             @PathVariable long id
-    ){
+    ) {
         service.deletar(id);
     }
 
@@ -62,7 +61,7 @@ public class LancamentoController {
     public Lancamento atualizar(
             @PathVariable Long id,
             @Valid @RequestBody Lancamento lancamento
-    ){
+    ) {
         return service.atualizar(
                 id,
                 lancamento
@@ -73,7 +72,7 @@ public class LancamentoController {
     public List<Lancamento> buscarPorFiltro(
             @RequestParam(required = false) String tipo,
             @RequestParam(required = false) String descricao
-    ){
+    ) {
         return service.buscarComFiltro(
                 tipo,
                 descricao
@@ -83,7 +82,7 @@ public class LancamentoController {
     @GetMapping("/paginado")
     public Page<Lancamento> listarPaginado(
             Pageable pageable
-    ){
+    ) {
         return service.listarPaginado(pageable);
     }
 
@@ -91,15 +90,18 @@ public class LancamentoController {
     public List<Lancamento> buscarPorPeriodo(
             @RequestParam LocalDate inicio,
             @RequestParam LocalDate fim
-    )
-    {
+    ) {
         return service.buscarPorPeriodo(inicio, fim);
     }
 
 
     @GetMapping("/saldo")
-    public SaldoDTO saldo()
-    {
+    public SaldoDTO saldo() {
         return service.calcularSaldo();
+    }
+
+    @GetMapping("/dashboard")
+    public DashboardDTO dashboard() {
+        return service.gerarDashboard();
     }
 }

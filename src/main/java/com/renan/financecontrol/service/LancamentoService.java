@@ -1,5 +1,6 @@
 package com.renan.financecontrol.service;
 
+import com.renan.financecontrol.dto.DashboardDTO;
 import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
 import com.renan.financecontrol.enums.TipoLancamento;
@@ -142,6 +143,20 @@ public class LancamentoService {
           receitas,
           despesas,
           receitas - despesas
+        );
+    }
+
+    public DashboardDTO gerarDashboard(){
+
+        SaldoDTO saldo = calcularSaldo();
+
+        long quantidadeLancamentos = repository.count();
+
+        return new DashboardDTO(
+            saldo.getReceitas(),
+            saldo.getDespesas(),
+            saldo.getSaldo(),
+            quantidadeLancamentos
         );
     }
 }
