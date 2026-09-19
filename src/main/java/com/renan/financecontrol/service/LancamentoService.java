@@ -2,6 +2,7 @@ package com.renan.financecontrol.service;
 
 import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
+import com.renan.financecontrol.enums.TipoLancamento;
 import com.renan.financecontrol.exception.ResouceNotFoundException;
 import com.renan.financecontrol.repository.LancamentoRepository;
 import org.jspecify.annotations.NonNull;
@@ -57,7 +58,7 @@ public class LancamentoService {
     public List<Lancamento> buscarPorTipo(
             String tipo
     ){
-        return repository.findByTipoIgnoreCase(tipo);
+        return repository.findByTipo(TipoLancamento.valueOf(tipo.toUpperCase()));
     }
 
     public List<Lancamento> buscarComFiltro(
@@ -65,11 +66,11 @@ public class LancamentoService {
             String descricao
     ){
         if(tipo != null && descricao != null){
-            return repository.findByTipoIgnoreCaseAndDescricaoContainingIgnoreCase(tipo, descricao);
+            return repository.findByTipoAndDescricaoContainingIgnoreCase(TipoLancamento.valueOf(tipo.toUpperCase()), descricao);
         }
 
         if(tipo != null){
-            return repository.findByTipoIgnoreCase(tipo);
+            return repository.findByTipo(TipoLancamento.valueOf(tipo.toUpperCase()));
         }
 
         if(descricao != null){
@@ -122,7 +123,7 @@ public class LancamentoService {
 
         for(Lancamento l : lancamentos){
 
-            if("Receita".equalsIgnoreCase(l.getTipo())){
+            if(l.getTipo() == TipoLancamento.RECEITA){
                 receitas += l.getValor().doubleValue();
             }else{
                 despesas += l.getValor().doubleValue();

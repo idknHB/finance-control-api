@@ -1,5 +1,6 @@
 package com.renan.financecontrol.entity;
 
+import com.renan.financecontrol.enums.TipoLancamento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,7 +29,8 @@ public class Lancamento {
     private BigDecimal valor;
 
     @NotNull
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoLancamento tipo;
 
     @NotNull
     private LocalDate data;
