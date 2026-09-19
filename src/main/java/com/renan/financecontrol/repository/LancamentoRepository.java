@@ -5,6 +5,7 @@ import com.renan.financecontrol.enums.TipoLancamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -16,5 +17,9 @@ public interface LancamentoRepository
     List<Lancamento> findByTipoAndDescricaoContainingIgnoreCase(
             TipoLancamento tipo,
             String descricao
+    );
+    List<Lancamento> findByDataBetween(
+      LocalDate inicio,
+      LocalDate fim
     );
 }
