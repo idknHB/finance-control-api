@@ -1,11 +1,14 @@
 package com.renan.financecontrol.service;
 
 import com.renan.financecontrol.dto.DashboardDTO;
+import com.renan.financecontrol.dto.RegisterRequest;
 import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
+import com.renan.financecontrol.entity.Usuario;
 import com.renan.financecontrol.enums.TipoLancamento;
 import com.renan.financecontrol.exception.ResouceNotFoundException;
 import com.renan.financecontrol.repository.LancamentoRepository;
+import org.hibernate.dialect.aggregate.SpannerPostgreSQLAggregateSupport;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

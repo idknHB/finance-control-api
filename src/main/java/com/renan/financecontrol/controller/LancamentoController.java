@@ -1,8 +1,10 @@
 package com.renan.financecontrol.controller;
 
 import com.renan.financecontrol.dto.DashboardDTO;
+import com.renan.financecontrol.dto.RegisterRequest;
 import com.renan.financecontrol.dto.SaldoDTO;
 import com.renan.financecontrol.entity.Lancamento;
+import com.renan.financecontrol.entity.Usuario;
 import com.renan.financecontrol.service.LancamentoService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
