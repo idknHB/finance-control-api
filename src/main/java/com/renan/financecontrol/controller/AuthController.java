@@ -1,8 +1,9 @@
 package com.renan.financecontrol.controller;
 
+import com.renan.financecontrol.dto.LoginRequest;
+import com.renan.financecontrol.dto.LoginResponse;
 import com.renan.financecontrol.dto.RegisterRequest;
 import com.renan.financecontrol.entity.Usuario;
-import com.renan.financecontrol.repository.UsuarioRepository;
 import com.renan.financecontrol.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,4 +29,12 @@ public class AuthController {
     ){
         return service.cadastrar(request);
     }
+
+    @PostMapping("/login")
+    public LoginResponse login(
+            @Valid @RequestBody LoginRequest request
+    ){
+        return service.login(request);
+    }
+
 }
