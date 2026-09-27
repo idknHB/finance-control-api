@@ -8,6 +8,7 @@ import com.renan.financecontrol.exception.CredenciaisInvalidasException;
 import com.renan.financecontrol.exception.EmailJaCadastradoException;
 import com.renan.financecontrol.exception.ResouceNotFoundException;
 import com.renan.financecontrol.repository.UsuarioRepository;
+import com.renan.financecontrol.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,15 @@ public class UsuarioService {
 
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public UsuarioService(
             UsuarioRepository repository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder, JwtService jwtService
     ){
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public Usuario cadastrar(
@@ -66,9 +69,13 @@ public class UsuarioService {
             );
         }
 
+        String token =
+                jwtService.generateToken(
+                        usuario.getEmail()
+        );
+
         return new LoginResponse(
-                "Login realizado com sucesso"
+                token
         );
     }
-
 }
